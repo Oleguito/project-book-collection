@@ -5,13 +5,20 @@ import java.util.regex.Pattern;
 
 public class Main {
     
-    static int getNumEntry(int lowBoundExcluded, int highBoundExcluded, Scanner scanner) {
+    /**
+     * Retrieves a number from the user within a specified range.
+     *
+     * @param  lowBoundExcluded  the lower bound of the range (exclusive)
+     * @param  highBoundExcluded the upper bound of the range (exclusive)
+     * @param  scanner           the Scanner object to read user input
+     * @return                   the number entered by the user within the specified range
+     */
+        static int getNumEntry(int lowBoundExcluded, int highBoundExcluded, Scanner scanner) {
         int numToReturn = -0xFFFF;
         while (numToReturn < lowBoundExcluded || numToReturn > highBoundExcluded) {
             try {
                 System.out.print("Ваш выбор: ");
-                if(scanner.hasNextLine()) scanner.nextLine();
-                numToReturn = scanner.nextInt();
+                numToReturn = scanner.nextInt(); scanner.nextLine();
             } catch (Exception e) {
                 System.out.println("Введите число из списка!");
             }
@@ -21,21 +28,21 @@ public class Main {
     
     public static void main(String[] args)
     {
-     
+        int currentYear = 2023;
         Scanner scanner = new Scanner(System.in);
         Pattern regex;
         Matcher matcher;
         MenuState menuState = MenuState.MENU_MAIN;
         MenuState menuStatePrev;
         int numEntry = 0;
-        BookCollection bookCollection = new BookCollection();
+        BookCollection bookCollection = new BookCollection(currentYear);
         boolean running = true;
         Book bookToEdit = null;
         
         while(running) {
             switch(menuState) {
                 case MENU_MAIN:
-                    numEntry = 0;
+                    numEntry = -0xFFFFFFFF;
                     System.out.println("Главное меню. Введите цифру, подходящую вашему действию.");
                     System.out.println("1 - Добавить книгу");
                     System.out.println("2 - Редактировать книгу");
@@ -67,7 +74,7 @@ public class Main {
                     break;
                 case MENU_ADD:
                     System.out.println("Добавление книги.");
-                    bookCollection.addBook();
+                    bookCollection.addBook(currentYear);
                     menuState = MenuState.MENU_MAIN;
                     break;
                 case MENU_EDIT:
@@ -106,6 +113,7 @@ public class Main {
                     }
                     break;
                 case MENU_SEARCH_TITLE:
+                    //region 1
                     System.out.println("Меню поиска по наименованию.");
                     System.out.println("Введите подстроку, которая должна содержаться в наименовании книги.");
                     if(scanner.hasNextLine()) scanner.nextLine();
@@ -119,15 +127,29 @@ public class Main {
                         numEntry = getNumEntry(1, foundBooks.size(), scanner);
                         System.out.println("Вы выбрали книгу номер " + numEntry);
                         bookToEdit = foundBooks.get(numEntry - 1);
-                        
+                        System.out.println("Что вы хотите сделать?");
+                        System.out.println("1 - Редактировать запись о книге");
+                        System.out.println("2 - Вернуться в главное меню");
+                        numEntry = getNumEntry(1, 2, scanner);
+                        switch (numEntry) {
+                            case 1:
+                                menuState = MenuState.MENU_EDIT;
+                                break;
+                            case 2:
+                                menuState = MenuState.MENU_MAIN;
+                                break;
+                        }
                     } else {
                         System.out.println("Книг не найдено.");
                         menuState = MenuState.MENU_MAIN;
                     }
+                    //end region
                     break;
                 case MENU_SEARCH_AUTHOR:
+                    // TODO: copypaste
                     break;
                 case MENU_SEARCH_PUBLISHER:
+                    // TODO: copypaste
                     break;
                 case MENU_EXIT:
                     System.out.println("Выход...");

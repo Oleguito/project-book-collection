@@ -1,6 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -18,7 +16,7 @@ public class BookCollection {
             }
     }
     
-    public List<Book> readBooksListFromFile(String fileName) {
+    public List<Book> readBooksListFromFile(String fileName, int currentYear) {
         FileReader fr;
         BufferedReader br;
         List<String> fileLines = new ArrayList<String>();
@@ -38,13 +36,13 @@ public class BookCollection {
             }
         }
         for(int i = 1; i < fileLines.size(); i++) {
-            booksThis.add(new Book(fileLines.get(i), scanner));
+            booksThis.add(new Book(fileLines.get(i), scanner, currentYear));
         }
         return booksThis;
     }
     
-    public BookCollection() {
-        books = readBooksListFromFile("books.csv");
+    public BookCollection(int currentYear) {
+        books = readBooksListFromFile("books.csv", currentYear);
     }
     
     public void displayBooks() {
@@ -64,20 +62,72 @@ public class BookCollection {
         return foundBooks;
     }
     
-    public void addBook() {
+    public List<Book> findInAuthor(String substring) {
+        List<Book> foundBooks = new ArrayList<Book>();
+        for(Book book : books) {
+            if (book.getAuthor().contains(substring)) {
+                foundBooks.add(book);
+            }
+        }
+        return foundBooks;
+    }
+    
+    public List<Book> findInPublisher(String substring) {
+        List<Book> foundBooks = new ArrayList<Book>();
+        for(Book book : books) {
+            if (book.getPublisher().contains(substring)) {
+                foundBooks.add(book);
+            }
+        }
+        return foundBooks;
+    }
+    
+    public void addBook(int currentYear) {
         String bookLine = "Дядя Вася;Василий;Вася интернешнл;1912;Про Васю;978-5-498-34543-2;книга, книга про васю, интересная книга;Н/Д;Н/Д";
-        Book book = new Book(bookLine, scanner);
-        book.editTitle();
-        book.editAuthor();
-        book.editPublisher();
-        book.editReleaseYear();
-        book.editGenre();
-        book.editISBN();
-        book.editTags();
-        book.editLocation();
-        book.editPath();
+        Book book = new Book(bookLine, scanner, currentYear);
+        // book.editTitle();
+        // book.editAuthor();
+        // book.editPublisher();
+        book.editReleaseYear(currentYear);
+        // book.editGenre();
+        // book.editISBN();
+        // book.editTags();
+        // book.editLocation();
+        // book.editPath();
         
         books.add(book);
-        // TODO: Записать в файл
+        System.out.println("Книга добавлена.");
+        writeBooksToFile("output.csv");
+        System.out.println("Изменения сохранены.");
+        // TODO: Включить выключенные
+    }
+    
+    private void writeBooksToFile (String fileName) {
+        FileWriter fw;
+        BufferedWriter bw;
+        try {
+            fw = new FileWriter(fileName);
+            bw = new BufferedWriter(fw);
+            bw.write("Наименование;Автор;Издательство;Год выпуска;Жанр;ISBN;Теги;Расположение;Путь");
+            for(Book book : books) {
+                bw.write(String.format(
+                    "%s;%s;%s;%s;%s;%s;%s;%s;%s;\n",
+                    book.getTitle(),
+                    book.getAuthor(),
+                    book.getPublisher(),
+                    book.getReleaseYear(),
+                    book.getGenre(),
+                    book.getIsbn(),
+                    book.getTags(),
+                    book.getLocation(),
+                    book.getPath()
+                ));
+            }
+            
+            bw.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        
     }
 }

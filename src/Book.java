@@ -3,6 +3,9 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static java.lang.System.in;
+import static java.lang.System.setOut;
+
 public class Book implements Serializable {
     
     private String title;
@@ -21,6 +24,7 @@ public class Book implements Serializable {
     Scanner scanner;
     Pattern regex;
     Matcher matcher;
+    int currentYear;
     
     public Book(String title,
                 String author,
@@ -51,7 +55,7 @@ public class Book implements Serializable {
     
     /* Я полагаю, а бог располагает, что все записи в файле корректны
        При добавлении в ручном режиме все проверяется */
-    public Book(String fileString, Scanner scanner) {
+    public Book(String fileString, Scanner scanner, int currentYear) {
         // TODO: Возможно тут необходимо проверить fileString
         //  на верное количество точек с запятой
         // System.out.println(fileString);
@@ -102,7 +106,7 @@ public class Book implements Serializable {
             case 3:
                 editPublisher(); break;
             case 4:
-                editReleaseYear(); break;
+                editReleaseYear(currentYear); break;
             case 5:
                 editISBN(); break;
             case 6:
@@ -143,11 +147,15 @@ public class Book implements Serializable {
     }
     
     public void editTags() {
-        System.out.println("Введите новое значение списка тегов.");
+        System.out.println("Введите новое значение списка тегов ЧЕРЕЗ ЗАПЯТУЮ.");
+        System.out.println("Пожалуйста, не используйте символ \"точка с запятой\" (;) для разделения!");
         String input = scanner.nextLine().trim();
         if (input.length() > 1000) {
             System.out.println("Список слишком длинный.");
             scanner.nextLine();
+            editTags();
+        } else if (input.contains(";")) {
+            System.out.println("Пожалуйста, не используйте символ \"точка с запятой\" (;) для разделения!");
             editTags();
         } else {
             setTags(input);
@@ -157,6 +165,7 @@ public class Book implements Serializable {
     
     public void editGenre() {
         System.out.println("Введите новое значение жанра.");
+        if (scanner.hasNextLine()) scanner.nextLine();
         String input = scanner.nextLine().trim();
         if (input.length() > 200) {
             System.out.println("Слишком длинное.");
@@ -184,14 +193,14 @@ public class Book implements Serializable {
         }
     }
     
-    public void editReleaseYear() {
+    public void editReleaseYear(int currentYear) {
         System.out.println("Введите новое значение года выпуска.");
-        int input = 0;
+        int input = -0xFFFFFFF;
         try {
             input = scanner.nextInt();
-            if (input < 1800 || input > 2100) {
+            if (input < 0 || input > currentYear) {
                 System.out.println("Неверное значение года.");
-                editReleaseYear();
+                editReleaseYear(currentYear);
             } else {
                 setReleaseYear(input);
                 System.out.println("Изменения внесены успешно.");
@@ -199,7 +208,7 @@ public class Book implements Serializable {
         } catch (Exception e) {
             System.out.println("Введите верное значение года.");
             scanner.nextLine();
-            editReleaseYear();
+            editReleaseYear(currentYear);
         }
         
     }
@@ -209,7 +218,6 @@ public class Book implements Serializable {
         String input = scanner.nextLine().trim();
         if (input.length() > 50) {
             System.out.println("Слишком длинное.");
-            scanner.nextLine();
             editPublisher();
         } else {
             setPublisher(input);
@@ -222,7 +230,6 @@ public class Book implements Serializable {
         String input = scanner.nextLine().trim();
         if (input.length() > 100) {
             System.out.println("Слишком длинное.");
-            scanner.nextLine();
             editTitle();
         } else {
             setTitle(input);
@@ -237,11 +244,9 @@ public class Book implements Serializable {
         String input = scanner.nextLine().trim();
         if (input.length() > 50) {
             System.out.println("Слишком длинное.");
-            scanner.nextLine();
             editAuthor();
         } else if (input.contains(";")) {
             System.out.println("Пожалуйста, не используйте символ \"точка с запятой\" (;) для разделения!");
-            scanner.nextLine();
             editAuthor();
         } else {
             setAuthor(input);
