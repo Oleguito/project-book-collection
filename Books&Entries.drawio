@@ -1,0 +1,40 @@
+<mxfile host="Electron" modified="2023-09-17T14:08:08.252Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.7.5 Chrome/114.0.5735.289 Electron/25.8.1 Safari/537.36" etag="KCkdt6H2TpcalNHfJ5At" version="21.7.5" type="device">
+  <diagram name="Page-1" id="ith6Q_pwqCWTdSiMsRqD">
+    <mxGraphModel dx="930" dy="828" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="UaF19oc5NjtOTLJf3MZ9-1" value="Программа для управления коллекцией записей или книг: Вы можете создать программу, которая позволяет пользователю добавлять, удалять и просматривать записи или книги в коллекции. Вы можете использовать массивы или связанные списки для хранения коллекции и функции чтения и записи из файла для сохранения или загрузки данных. Вам понадобятся знания функций, циклов, массивов, связанных списков, чтения и записи файлов, а также классов и принципов ООП." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;fontColor=#000000;darkOpacity=0.05;fillColor=#FFF9B2;strokeColor=none;fillStyle=solid;direction=west;gradientDirection=north;gradientColor=#FFF2A1;shadow=1;size=20;pointerEvents=1;" parent="1" vertex="1">
+          <mxGeometry x="10" y="10" width="350" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="UaF19oc5NjtOTLJf3MZ9-6" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Book&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- title: String&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- author: String&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- publisher: String&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- releaseDate: String&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- isbn: int&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- genre: String[]&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- tags: String[]&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- article: int&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- location: String&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- path: String&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;get set&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="380" y="10" width="160" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="UaF19oc5NjtOTLJf3MZ9-7" value="BookCollection" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="560" y="10" width="220" height="198" as="geometry" />
+        </mxCell>
+        <mxCell id="UaF19oc5NjtOTLJf3MZ9-8" value="- books: Book[]" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="UaF19oc5NjtOTLJf3MZ9-7" vertex="1">
+          <mxGeometry y="26" width="220" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="UaF19oc5NjtOTLJf3MZ9-9" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="UaF19oc5NjtOTLJf3MZ9-7" vertex="1">
+          <mxGeometry y="60" width="220" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="UaF19oc5NjtOTLJf3MZ9-10" value="+ add(Book): void&lt;br&gt;+ edit(Book): void&lt;br&gt;+ delete(Book):void&lt;br&gt;+ display():void&lt;br&gt;+ find(overloads):Book&lt;br&gt;- loadFrom(File):Book[]&lt;br&gt;- loadTo(File):void&lt;br&gt;+ get set" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="UaF19oc5NjtOTLJf3MZ9-7" vertex="1">
+          <mxGeometry y="68" width="220" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="OrGvC5esXLVBSjiXsBnN-5" value="&lt;div&gt;Меню:&lt;/div&gt;&lt;div&gt;1. Добавить книгу&lt;/div&gt;&lt;div&gt;2. Редактировать книгу&lt;/div&gt;&lt;div&gt;3. Удалить книгу&lt;/div&gt;&lt;div&gt;4. Просмотреть коллекцию&lt;/div&gt;&lt;div&gt;5. Поиск книги&lt;/div&gt;&lt;div&gt;6. Выход&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Введите номер операции:&lt;/div&gt;" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
+          <mxGeometry x="40" y="290" width="170" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="OrGvC5esXLVBSjiXsBnN-6" value="&lt;div&gt;Выберите действие:&lt;/div&gt;&lt;div&gt;1. Поиск книги&lt;/div&gt;&lt;div&gt;2. Фильтрация книг&lt;/div&gt;" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
+          <mxGeometry x="240" y="290" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="OrGvC5esXLVBSjiXsBnN-7" value="&lt;div&gt;Поиск книги:&lt;/div&gt;&lt;div&gt;Выберите опцию поиска:&lt;/div&gt;&lt;div&gt;1. Поиск по названию&lt;/div&gt;&lt;div&gt;2. Поиск по автору&lt;/div&gt;&lt;div&gt;3. Поиск по издательству&lt;/div&gt;&lt;div&gt;4. Выход&lt;/div&gt;" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
+          <mxGeometry x="425" y="290" width="170" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="OrGvC5esXLVBSjiXsBnN-8" value="&lt;div&gt;Фильтрация книг:&lt;/div&gt;&lt;div&gt;Выберите опцию фильтрации:&lt;/div&gt;&lt;div&gt;1. Фильтрация по году публикации&lt;/div&gt;&lt;div&gt;2. Фильтрация по автору&lt;/div&gt;&lt;div&gt;3. Фильтрация по издательству&lt;/div&gt;&lt;div&gt;4. Выход&lt;/div&gt;" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
+          <mxGeometry x="610" y="290" width="170" height="160" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
