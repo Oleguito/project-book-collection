@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 import static java.lang.System.in;
 import static java.lang.System.setOut;
 
-public class Book implements Serializable {
+public class Book {
     
     private String title;
     private String author;
@@ -75,6 +75,13 @@ public class Book implements Serializable {
         this.scanner = scanner;
     }
     
+    @Override
+    public String toString() {
+        return String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s",
+                title, author, publisher, releaseYear, genre, isbn, tags, location, path
+        );
+    }
+    
     public void edit() {
         System.out.println("Меню редактирования книги. Введите цифру, подходящую вашему действию.");
         System.out.println("1 - Наименование");
@@ -123,9 +130,9 @@ public class Book implements Serializable {
     public void editPath() {
         System.out.println("Введите новое значение расположения в файловой системе.");
         String input = scanner.nextLine().trim();
+        // if(input.isBlank()) return;
         if (input.length() > 1000) {
             System.out.println("Слишком длинное.");
-            scanner.nextLine();
             editLocation();
         } else {
             setLocation(input);
@@ -136,6 +143,7 @@ public class Book implements Serializable {
     public void editLocation() {
         System.out.println("Введите новое значение расположения в книжном зале.");
         String input = scanner.nextLine().trim();
+        // if(input.isBlank()) return;
         if (input.length() > 1000) {
             System.out.println("Слишком длинное.");
             scanner.nextLine();
@@ -150,6 +158,7 @@ public class Book implements Serializable {
         System.out.println("Введите новое значение списка тегов ЧЕРЕЗ ЗАПЯТУЮ.");
         System.out.println("Пожалуйста, не используйте символ \"точка с запятой\" (;) для разделения!");
         String input = scanner.nextLine().trim();
+        // if(input.isBlank()) return;
         if (input.length() > 1000) {
             System.out.println("Список слишком длинный.");
             scanner.nextLine();
@@ -165,8 +174,8 @@ public class Book implements Serializable {
     
     public void editGenre() {
         System.out.println("Введите новое значение жанра.");
-        if (scanner.hasNextLine()) scanner.nextLine();
         String input = scanner.nextLine().trim();
+        // if(input.isBlank()) return;
         if (input.length() > 200) {
             System.out.println("Слишком длинное.");
             scanner.nextLine();
@@ -182,6 +191,7 @@ public class Book implements Serializable {
         String isbnRegex = "^(?=(?:\\D*\\d){10}(?:(?:\\D*\\d){3})?$)[\\d-]+$";
         regex = Pattern.compile(isbnRegex);
         String input = scanner.nextLine().trim();
+        // if(input.isBlank()) return;
         matcher = regex.matcher(input);
         if (matcher.matches()) {
             System.out.println("Некорректный формат.");
@@ -198,7 +208,9 @@ public class Book implements Serializable {
         int input = -0xFFFFFFF;
         try {
             input = scanner.nextInt();
-            if (input < 0 || input > currentYear) {
+            scanner.nextLine();
+            // if (input == 0) { return; }
+            if (input < 1900 || input > currentYear) {
                 System.out.println("Неверное значение года.");
                 editReleaseYear(currentYear);
             } else {
@@ -216,6 +228,7 @@ public class Book implements Serializable {
     public void editPublisher() {
     System.out.println("Введите новое значение издательства.");
         String input = scanner.nextLine().trim();
+        // if(input.isBlank()) return;
         if (input.length() > 50) {
             System.out.println("Слишком длинное.");
             editPublisher();
@@ -228,6 +241,7 @@ public class Book implements Serializable {
     public void editTitle() {
         System.out.println("Введите новое значение наименования книги.");
         String input = scanner.nextLine().trim();
+        // if(input.isBlank()) return;
         if (input.length() > 100) {
             System.out.println("Слишком длинное.");
             editTitle();
@@ -242,6 +256,7 @@ public class Book implements Serializable {
         System.out.println("Рекомендуется вводить сначала фамилию автора и инициалы далее, следующего автора через запятую");
         System.out.println("Пожалуйста, не используйте символ \"точка с запятой\" (;) для разделения!");
         String input = scanner.nextLine().trim();
+        // if(input.isBlank()) return;
         if (input.length() > 50) {
             System.out.println("Слишком длинное.");
             editAuthor();

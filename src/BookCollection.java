@@ -11,7 +11,7 @@ public class BookCollection {
     public static void listBooks(List<Book> bookList) {
         int len = bookList.size();
             for(int i = 0; i < len; i++) {
-                System.out.printf("%d - ", i);
+                System.out.printf("%d - ", i + 1);
                 bookList.get(i).printHorizontal(true, true);
             }
     }
@@ -55,7 +55,7 @@ public class BookCollection {
     public List<Book> findInTitle(String substring) {
         List<Book> foundBooks = new ArrayList<Book>();
         for(Book book : books) {
-            if (book.getTitle().contains(substring)) {
+            if (book.getTitle().toLowerCase().contains(substring.toLowerCase())) {
                 foundBooks.add(book);
             }
         }
@@ -65,7 +65,7 @@ public class BookCollection {
     public List<Book> findInAuthor(String substring) {
         List<Book> foundBooks = new ArrayList<Book>();
         for(Book book : books) {
-            if (book.getAuthor().contains(substring)) {
+            if (book.getAuthor().toLowerCase().contains(substring.toLowerCase())) {
                 foundBooks.add(book);
             }
         }
@@ -75,29 +75,45 @@ public class BookCollection {
     public List<Book> findInPublisher(String substring) {
         List<Book> foundBooks = new ArrayList<Book>();
         for(Book book : books) {
-            if (book.getPublisher().contains(substring)) {
+            if (book.getPublisher().toLowerCase().contains(substring.toLowerCase())) {
                 foundBooks.add(book);
             }
         }
         return foundBooks;
     }
     
+    public void editBook(Book book) {
+        if (book != null) {
+            book.edit();
+            System.out.println("Запись о книге изменена.");
+            writeBooksToFile("books.csv");
+            System.out.println("Изменения сохранены.");
+        } else {
+            System.out.println("Книга не выделена");
+        }
+    }
+    
     public void addBook(int currentYear) {
-        String bookLine = "Дядя Вася;Василий;Вася интернешнл;1912;Про Васю;978-5-498-34543-2;книга, книга про васю, интересная книга;Н/Д;Н/Д";
+        String bookLine = "Title;Author;Publisher;0001;Genre;978-5-498-34543-2;tag1, tag2, tag3;N/A;N/A";
         Book book = new Book(bookLine, scanner, currentYear);
-        // book.editTitle();
-        // book.editAuthor();
-        // book.editPublisher();
+
         book.editReleaseYear(currentYear);
-        // book.editGenre();
+        book.editTitle();
+        book.editAuthor();
+        book.editPublisher();
+        book.editGenre();
         // book.editISBN();
-        // book.editTags();
-        // book.editLocation();
-        // book.editPath();
+        book.editTags();
+        book.editLocation();
+        book.editPath();
         
+        
+        // System.out.println(books.get(books.size() - 1).toString());
+        // System.out.println(bookLine);
+        // System.out.println(books.get(books.size() - 1).toString().equals(bookLine));
         books.add(book);
         System.out.println("Книга добавлена.");
-        writeBooksToFile("output.csv");
+        writeBooksToFile("books.csv");
         System.out.println("Изменения сохранены.");
         // TODO: Включить выключенные
     }
@@ -129,5 +145,12 @@ public class BookCollection {
             throw new RuntimeException(e);
         }
         
+    }
+    
+    public void deleteBook(Book bookToDelete) {
+        books.remove(bookToDelete);
+        System.out.println("Книга удалена.");
+        writeBooksToFile("books.csv");
+        System.out.println("Изменения сохранены.");
     }
 }
